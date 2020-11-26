@@ -1,2 +1,0 @@
-# Postgre-SQL Challenge
- 
