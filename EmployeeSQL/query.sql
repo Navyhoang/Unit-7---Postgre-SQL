@@ -11,24 +11,14 @@ FROM employees e
 WHERE right(hire_date, 4) IN ('1986') ;    -- use IN because column hire_date is VARCHAR so cannot use '=' operator
 
 -- 3. List the manager of each department with the following information: department number, department name, the manager's employee number, last name, first name.
--- Mapping connections: dept_manager: dept_no, dept_mag
---                      department: dept_name
---                      dept_emp: connect
---                      employees: emp_no, last name, first name
-
-SELECT dm.dept_no as "Department number", d.dept_name as "Department name", dm.mag_no as "Manager number", e.emp_no as "Employee number", e.last_name as "Employee last name", e.first_name as "Employee first name"
-FROM dept_manager dm
-JOIN departments d
-	ON dm.dept_no = d.dept_no
-JOIN dept_emp de
-	ON d.dept_no = de.dept_no
+SELECT d.dept_no as "Department number", d.dept_name as "Department name", dm.emp_no as "Manager employee number", e.last_name as "Manager last name", e.first_name as "Manager first name"
+FROM departments d
+JOIN dept_manager dm
+	ON d.dept_no = dm.dept_no
 JOIN employees e
-	ON de.emp_no = e.emp_no;
-	
+	ON dm.emp_no = e.emp_no;
+
 -- 4. List the department of each employee with the following information: employee number, last name, first name, and department name.
--- Mapping connections: employees: employee number, last name, first name
---                      dept_emp: dept_no
---                      departments: dept_name
 SELECT e.emp_no as "Employee number", e.last_name as "Employee last name", e.first_name as "Employee first name", d.dept_name as "Department name" 
 FROM employees e
 JOIN dept_emp de
@@ -38,7 +28,7 @@ JOIN departments d
 
 -- 5. List first name, last name, and sex for employees whose first name is "Hercules" and last names begin with "B."
 
-SELECT e.first_name, e.last_name, e.sex, d.dept_name
+SELECT e.first_name, e.last_name, e.sex
 FROM employees e
 WHERE first_name IN ('Hercules')
 AND last_name LIKE 'B%';

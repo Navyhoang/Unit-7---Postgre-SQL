@@ -46,9 +46,8 @@ CREATE TABLE dept_emp (
 CREATE TABLE dept_manager (
 
 		dept_no VARCHAR(100) NOT NULL,
-		mag_no VARCHAR(100) PRIMARY KEY NOT NULL,
-		FOREIGN KEY (dept_no) REFERENCES departments(dept_no)
-);
+		emp_no INT PRIMARY KEY NOT NULL,
+		FOREIGN KEY (dept_no) REFERENCES departments(dept_no),
+		FOREIGN KEY (emp_no) REFERENCES employees(emp_no)
 
-ALTER TABLE dept_manager 
-RENAME COLUMN mag_no TO emp_no;
+);
